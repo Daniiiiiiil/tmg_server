@@ -1,14 +1,28 @@
-from typing import Union
 from fastapi import FastAPI
+import random
 
 app = FastAPI()
 
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+coordinates = dict()
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/hide")
+def hide_treasure():
+    coordinates["x"] = random.randrange(1, 100)
+    coordinates["y"] = random.randrange(1, 100)
+    return {"hided": True}
+
+
+@app.get("/check/{username}+{x}+{y}")
+def check_hit(username: str, x: int, y: int):
+    responce = dict()
+    responce["username"] = username
+    responce["diffx"] = coordinates["x"] - x
+    responce["diffy"] = coordinates["y"] - y
+
+    diffs = ["diffx", "diffy"]
+    for diff in diffs:
+        if responce[diff] < 0:
+            responce[diff] *= -1
+
+    return responce
