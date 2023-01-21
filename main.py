@@ -1,28 +1,18 @@
 from fastapi import FastAPI
-import random
+from game import Game
 
 app = FastAPI()
-
-coordinates = dict()
 
 
 @app.get("/hide")
 def hide_treasure():
-    coordinates["x"] = random.randrange(1, 100)
-    coordinates["y"] = random.randrange(1, 100)
-    return {"hided": True}
+    new_game = Game()
+    return {"game_id": new_game.get_id()}
 
 
-@app.get("/check/{username}+{x}+{y}")
-def check_hit(username: str, x: int, y: int):
-    responce = dict()
-    responce["username"] = username
-    responce["diffx"] = coordinates["x"] - x
-    responce["diffy"] = coordinates["y"] - y
-
-    diffs = ["diffx", "diffy"]
-    for diff in diffs:
-        if responce[diff] < 0:
-            responce[diff] *= -1
-
-    return responce
+@app.get("/check/{game_id}+{x}+{y}")
+def check_hit(game_id: int, x: int, y: int):
+    if Game.is_exists(game_id):
+        return {"match_rate": Game.check_hit(game_id, (x, y))}
+    
+    return {"err": "Game not found!"}
