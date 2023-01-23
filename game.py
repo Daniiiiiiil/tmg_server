@@ -24,10 +24,7 @@ class Game:
     
     @staticmethod
     def is_exists(id: int) -> bool:
-        if id in range(len(Game.__games)):
-            return True
-        
-        return False
+        return id in range(len(Game.__games))
     
     @staticmethod
     def check_hit(id: int, hit: tuple[int, int]) -> str:
