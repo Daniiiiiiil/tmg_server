@@ -12,7 +12,7 @@ def hide_treasure():
 
 @app.get("/check/{game_id}+{x}+{y}")
 def check_hit(game_id: int, x: int, y: int):
-    if Game.is_exists(game_id):
+    if Game.is_available(game_id):
         return {"match_rate": Game.check_hit(game_id, (x, y))}
     
     return {"err": "Game not found!"}

@@ -10,6 +10,7 @@ class Game:
             random.randrange(1, 100),
             random.randrange(1, 100),
         )
+        self.is_finished = False
         Game.__games.append(self)
     
     def get_id(self) -> int:
@@ -23,8 +24,11 @@ class Game:
         return math.sqrt((diff_x**2) + (diff_y**2))
     
     @staticmethod
-    def is_exists(id: int) -> bool:
-        return id in range(len(Game.__games))
+    def is_available(id: int) -> bool:
+        is_available = False
+        if id in range(len(Game.__games)):
+            is_available = not Game.__games[id].is_finished
+        return is_available
     
     @staticmethod
     def check_hit(id: int, hit: tuple[int, int]) -> str:
