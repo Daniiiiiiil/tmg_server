@@ -35,13 +35,17 @@ class Game:
         """Returns match rate for treasure and hit"""
         game = Game.__games[id]
         distance = game.get_distance(hit)
+        
         if distance <= 10:
-            return "Very Hot!"
+            game.is_finished = True
+            return "You Win!"
         elif distance <= 15:
+            return "Very Hot!"
+        elif distance <= 25:
             return "Hot!"
-        elif distance <= 20:
+        elif distance <= 35:
             return "Warm!"
-        elif distance <= 30:
+        elif distance <= 45:
             return "Cold!"
 
         return "Very Cold!"
