@@ -31,21 +31,21 @@ class Game:
         return is_available
     
     @staticmethod
-    def check_hit(id: int, hit: tuple[int, int]) -> str:
+    def check_hit(id: int, hit: tuple[int, int]) -> float:
         """Returns match rate for treasure and hit"""
         game = Game.__games[id]
         distance = game.get_distance(hit)
         
         if distance <= 10:
             game.is_finished = True
-            return "You Win!"
+            return (5/5)    # "You Win!"
         elif distance <= 15:
-            return "Very Hot!"
+            return (4/5)    # "Very Hot!"
         elif distance <= 25:
-            return "Hot!"
+            return (3/5)    # "Hot!"
         elif distance <= 35:
-            return "Warm!"
+            return (2/5)    # "Warm!"
         elif distance <= 45:
-            return "Cold!"
+            return (1/5)    # "Cold!"
 
-        return "Very Cold!"
+        return 0   # "Very Cold!"
