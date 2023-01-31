@@ -1,14 +1,18 @@
-from typing import Union
 from fastapi import FastAPI
+from game import Game
 
 app = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.get("/hide")
+def hide_treasure():
+    new_game = Game()
+    return {"game_id": new_game.get_id()}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/check")
+def check_hit(game_id: int, x: int, y: int):
+    if Game.is_available(game_id):
+        return {"match_rate": Game.check_hit(game_id, (x, y))}
+
+    return {"err": "Game not found!"}
