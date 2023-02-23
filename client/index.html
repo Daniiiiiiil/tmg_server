@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <title>Treasure Map Game</title>
+    </head>
+
+    <body>
+        <h1>Treasure Map Game</h1>
+        <p id="game_id"></p>
+
+        <div style="display: none;" id="game_form">
+            <p>Fill form with coordinates (1-100):</p>
+            <form action="http://127.0.0.1:8000/hide-post" method="post" id="game_form">
+                <input type="hidden" id="game_id" name="game_id"/>
+
+                <label for="x">X=</label>
+                <input type="number" min="1" max="100" id="x" name="x"/>
+                <br>
+                <label for="y">Y=</label>
+                <input type="number" min="1" max="100" id="y" name="y"/>
+                <br>
+
+                <input type="submit" value="Check"/>
+            </form>
+
+            <p>
+                Match rate:
+                <output form="game_form" for="x y" id="match_rate" name="match_rate"></output>
+            </p>
+        </div>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
+
