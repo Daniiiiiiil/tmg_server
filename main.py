@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from game import Game
 
 app = FastAPI()
 app.mount("/client", StaticFiles(directory="client"), name="client")
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1"])
 
 
 @app.get("/hide")
